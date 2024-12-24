@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mariadb
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: lms2
+#      MARIADB_USER: lms2
+#      MARIADB_PASSWORD: password
+    volumes:
+      - ./schema:/docker-entrypoint-initdb.d
+      - ./data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
