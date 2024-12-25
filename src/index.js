@@ -7,6 +7,7 @@ const controller = require('./controller');
 const port = 3000;
 const { errorHandler } = require('./lib/error-handler');
 
+app.use(express.static('public'));
 app.set('views', `${__dirname}/../views`);
 app.set('view engine', 'pug');
 

@@ -9,10 +9,10 @@ block content
         div.lecture
             a(href='/lecture/' + lecture.lec_id) #{lecture.name} (#{lecture.lecturer})
             if user.role == 0
-                a(href='/lecture/' + lecture.lec_id + '/write') 게시물 작성
+                a.button(href='/lecture/' + lecture.lec_id + '/write') 게시물 작성
     h1 모든 강의 목록
     each lecture in all_lectures 
         div.lecture
             | #{lecture.name} (#{lecture.lecturer})
             if user.role == 1
-                a(href='/lecture/' + lecture.lec_id + '/apply') 수강 신청
+                a.button(href='/lecture/' + lecture.lec_id + '/apply') 수강 신청

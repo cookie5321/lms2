@@ -10,3 +10,4 @@ npm run start
 ```
 
 `http://localhost:3000`으로 접속합니다.
+- 레포트 링크: https://llllll.notion.site/KWEB-1673d3fd481f80a59711efdfd7a982a1?pvs=4

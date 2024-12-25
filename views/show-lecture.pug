@@ -8,6 +8,6 @@ block content
     if !posts.length
         p 게시물이 없습니다.
     each post in posts
-        div.post
+        div
             h2 #{post.title} (#{post.created})
-            | !{post.content}
+            div.post !{post.content}

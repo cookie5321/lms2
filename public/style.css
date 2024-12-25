@@ -1,0 +1,15 @@
+.post {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.button {
+    display: inline-block;
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid #aaa;
+    text-decoration: none;
+    border-radius: 5px;
+}
