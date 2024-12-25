@@ -10,10 +10,7 @@ const errorHandler = (err, req, res, next) => {
             return res.send("404 Not Found");
         default:
             if (process.env.MODE !== 'prod') console.error('\x1b[31m%s\x1b[0m', err);
-            return res.render('error.pug', {
-                errorCode: 500,
-                errorMsg: 'Internal Server Error',
-            });
+            return res.send(getAlertScript('오류가 발생했습니다. 이미 존재하는 계정으로 회원가입을 시도하거나, 여러 번 동일 과목을 수강신청을 시도했을 수 있습니다.'));
     }
 };
 
