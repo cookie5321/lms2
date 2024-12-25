@@ -1,6 +1,6 @@
 create table users (
-    id int not null primary key auto_increment,
-    userid varchar(16) not null unique,
+    user_id int not null primary key auto_increment,
+    username varchar(16) not null unique,
     password varchar(150) not null,
     name varchar(32) not null,
     std_num char(10) not null unique,
@@ -10,7 +10,8 @@ create table users (
 create table lectures (
     lec_id int not null primary key auto_increment,
     name varchar(32) not null,
-    lecturer int not null
+    lecturer int not null,
+    foreign key (lecturer) references users(user_id)
 ) engine=InnoDB default charset=utf8;
 
 create table posts (
@@ -18,5 +19,14 @@ create table posts (
     lecture int not null,
     title varchar(128) not null,
     created datetime not null,
-    contents text not null
-)
+    content text not null
+    foreign key (lecture) references lectures(lec_id)
+) engine=InnoDB default charset=utf8;
+
+create table takes (
+    user int not null,
+    lecture int not null,
+    primary key (user, lecture),
+    foreign key (user) references users(user_id),
+    foreign key (lecture) references lectures(lec_id)
+) engine=InnoDB default charset=utf8;
