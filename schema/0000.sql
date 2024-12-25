@@ -1,9 +1,11 @@
+use lms2;
+
 create table users (
     user_id int not null primary key auto_increment,
     username varchar(16) not null unique,
     password varchar(150) not null,
     name varchar(32) not null,
-    std_num char(10) not null unique,
+    std_num char(10) unique,
     role int not null
 ) engine=InnoDB default charset=utf8;
 
@@ -19,7 +21,7 @@ create table posts (
     lecture int not null,
     title varchar(128) not null,
     created datetime not null,
-    content text not null
+    content text not null,
     foreign key (lecture) references lectures(lec_id)
 ) engine=InnoDB default charset=utf8;
 
