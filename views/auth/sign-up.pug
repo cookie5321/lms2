@@ -1,0 +1,31 @@
+extends ../layout.pug
+
+block title
+    | 회원가입
+
+block content
+    form#sign-up(method='post')
+        p
+            label(for='username') 아이디
+            br
+            input(type='text', name='username')
+        p
+            label(for='password') 비밀번호
+            br
+            input(type='password', id='password', name='password')
+        p
+            label(for='name') 이름
+            br
+            input(type='text', name='name')
+        p
+            label(for='std_num') 학번 - 교수일 경우 생략 가능.
+            br
+            input(type='text', name='std_num')
+        p
+            label(for='role') 구분
+            br
+            select(name='role')
+                option(value='1') 학생
+                option(value='0') 교수
+        p
+            input(type='submit', value='로그인')

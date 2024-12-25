@@ -8,6 +8,21 @@ html
             content='width=device-width, initial-scale=1')
     body
         #header
-            a(href='/') 메인
-            | /
-            | test
+            if !user
+                a(href='/') 메인
+                | /
+                a(href='/auth/sign_in') 로그인
+                | /
+                a(href='/auth/sign_up') 회원가입
+            else
+                | 안녕하세요, <b>#{user.name}</b>님. 
+                a(href='/') 메인
+                | /
+                a(href='/auth/sign_out') 로그아웃
+                | /
+                a(href='/lectures') 강의 목록
+                if user.role == 0
+                    | /
+                    a(href='/create_lecture') 강의 등록
+        #content
+            block content

@@ -1,0 +1,13 @@
+extends ./layout.pug
+
+block title
+    | 강의 목록
+
+block content
+    h1 게시물 목록: #{lecture.name} (#{lecture.lecturer})
+    if !posts.length
+        p 게시물이 없습니다.
+    each post in posts
+        div.post
+            h2 #{post.title} (#{post.created})
+            | !{post.content}

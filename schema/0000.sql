@@ -3,7 +3,7 @@ use lms2;
 create table users (
     user_id int not null primary key auto_increment,
     username varchar(16) not null unique,
-    password varchar(150) not null,
+    password varchar(151) not null,
     name varchar(32) not null,
     std_num char(10) unique,
     role int not null
@@ -20,7 +20,7 @@ create table posts (
     post_id int not null primary key auto_increment,
     lecture int not null,
     title varchar(128) not null,
-    created datetime not null,
+    created datetime not null default current_timestamp(),
     content text not null,
     foreign key (lecture) references lectures(lec_id)
 ) engine=InnoDB default charset=utf8;

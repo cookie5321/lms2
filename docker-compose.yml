@@ -9,6 +9,7 @@ services:
       MARIADB_DATABASE: lms2
 #      MARIADB_USER: lms2
 #      MARIADB_PASSWORD: password
+      TZ: Asia/Seoul
     volumes:
       - ./schema:/docker-entrypoint-initdb.d
       - ./data:/var/lib/mysql
