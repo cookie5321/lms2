@@ -39,8 +39,6 @@ const createLecture = async (req, res, next) => {
     try {
         const { user } = req.session;
         const { name } = req.body;
-        const { role } = await UserDAO.getUserData(user.username);
-        if (role != 0) throw new Error('UNAUTHORIZED')
         if (!name || getByteLength(name) > 64) throw new Error('BAD_REQUEST');
 
         await LectureDAO.createLecture(name, user.user_id);

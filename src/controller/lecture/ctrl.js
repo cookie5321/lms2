@@ -2,7 +2,6 @@ const { LectureDAO, PostDAO } = require('../../DAO');
 
 const registerLecture = async (req, res, next) => {
     try {
-        if (req.session.user.role != 1) throw new Error('UNAUTHORIZED');
         const { lectureId } = req.params;
 
         await LectureDAO.registerLecture(req.session.user.user_id, lectureId);
@@ -12,7 +11,7 @@ const registerLecture = async (req, res, next) => {
     }
 };
 
-const showLecture = async (req, res, next) => { // TODO check if user is registered
+const showLecture = async (req, res, next) => {
     try {
         const { lectureId } = req.params;
         const user = req.session.user;
@@ -33,7 +32,7 @@ const writePostForm = async (req, res, next) => {
     }
 }
 
-const writePost = async (req, res, next) => { // TODO check if user is the lecturer
+const writePost = async (req, res, next) => {
     try {
         const { lectureId } = req.params;
         const { post, title } = req.body;
