@@ -1,8 +1,10 @@
 const { LectureDAO, UserDAO } = require('../DAO');
+const { getByteLength } = require('../lib/byte-length');
 
 const indexPage = async (req, res, next) => {
     try {
         const { user } = req.session;
+        if (user) return res.redirect('/lectures');
         return res.render('index.pug', { user });
     } catch (err) {
         return next(err);
@@ -12,7 +14,6 @@ const indexPage = async (req, res, next) => {
 const lecturesPage = async (req, res, next) => {
     try {
         const { user } = req.session;
-        console.log(user);
         let all_lectures = await LectureDAO.getLectures();
         const lectures = user.role == 0 ? 
             await LectureDAO.getLecturesByLecturer(user.user_id) : 
@@ -27,8 +28,6 @@ const lecturesPage = async (req, res, next) => {
 const createLectureForm = async (req, res, next) => {
     try {
         const { user } = req.session;
-        const { role } = await UserDAO.getUserData(user.username);
-        if (role != 0) throw new Error('UNAUTHORIZED');
 
         return res.render('create-lecture.pug', { user });
     } catch (err) {
@@ -42,7 +41,7 @@ const createLecture = async (req, res, next) => {
         const { name } = req.body;
         const { role } = await UserDAO.getUserData(user.username);
         if (role != 0) throw new Error('UNAUTHORIZED')
-        if (!name || name.length > 32) throw new Error('BAD_REQUEST');
+        if (!name || getByteLength(name) > 64) throw new Error('BAD_REQUEST');
 
         await LectureDAO.createLecture(name, user.user_id);
         return res.redirect('/lectures');

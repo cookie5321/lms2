@@ -11,7 +11,7 @@ create table users (
 
 create table lectures (
     lec_id int not null primary key auto_increment,
-    name varchar(32) not null,
+    name varchar(64) not null,
     lecturer int not null,
     foreign key (lecturer) references users(user_id)
 ) engine=InnoDB default charset=utf8;

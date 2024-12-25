@@ -15,8 +15,6 @@ app.use(session({
     saveUninitialized: true,
 }));
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(`${__dirname}/../public`));
-
 app.use('/', controller);
 
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

@@ -1,18 +1,17 @@
 const { UserDAO } = require('../../DAO');
 const { generatePassword, verifyPassword } = require('../../lib/authentication');
+const { getByteLength } = require('../../lib/byte-length');
 
-// GET /auth/sign_in
 const signInForm = async (req, res, next) => {
     try {
         const { user } = req.session;
-        console.log("A", user);
         if (user) return res.redirect('/');
         else return res.render('auth/sign-in.pug', { user });
     } catch (err) {
         return next(err);
     }
 };
-// POST /auth/sign_in
+
 const signIn = async (req, res, next) => {
     try {
         const { username, password } = req.body;
@@ -29,49 +28,44 @@ const signIn = async (req, res, next) => {
     }
 };
 
-// GET /auth/sign_up
 const signUpForm = async (req, res, next) => {
     try {
         const { user } = req.session;
-        console.log("B", user);
         return res.render('auth/sign-up.pug', { user });
     } catch {
         return next(err);
     }
 };
-// POST /auth/sign_up
+
 const signUp = async (req, res, next) => {
     try {
         const { username, password, name, std_num, role } = req.body;
-        console.log("C", req.body);
         if (!username ||
-            username.length > 16 ||
+            getByteLength(username) > 16 ||
             !password ||
             !name ||
-            name.length > 32 ||
-            (role == '1' && std_num.length != 10)
-        )
-            throw new Error('BAD_REQUEST');
+            getByteLength(name) > 32 ||
+            (role == 1 && getByteLength(std_num) != 10)
+        ) throw new Error('BAD_REQUEST');
         const hashedPassword = await generatePassword(password);
-        await UserDAO.createUser(username, hashedPassword, name, std_num ? std_num : null, role);
+        await UserDAO.createUser(username, hashedPassword, name, role == 1 ? std_num : null, role);
         return res.redirect('/auth/sign_in');
     } catch (err) {
         return next(err);
     }
 };
 
-// GET /auth/sign_out
 const signOut = async (req, res, next) => {
     try {
         req.session.destroy(err => {
             if (err) throw err;
             else return res.redirect('/');
         });
-
     } catch (err) {
         return next(err);
     }
 };
+
 module.exports = {
     signInForm,
     signIn,
